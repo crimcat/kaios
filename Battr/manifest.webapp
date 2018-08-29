@@ -1,0 +1,17 @@
+{
+  "name": "BattR",
+  "version": "0.1",
+  "description": "Battery status monitor",
+  "launch_path": "/index.html",
+  "type": "web",
+  "icons": {
+    "56": "/icons/icon56x56.png",
+    "112": "/icons/icon112x112.png",
+    "128": "/icons/icon128x128.png"
+  },
+  "developer": {
+    "name": "Stas Torgashov",
+    "url": "https://twitter.com/crimcat"
+  },
+  "orientation": [ "portrait" ]
+}
