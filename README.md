@@ -2,4 +2,4 @@
 
 KaiOS and Nokia 8110 4G related stuff
 
-- **BattR** - the simpliest dattery status monitor
+- **BattR** - the simpliest battery status monitor
