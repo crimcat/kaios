@@ -8,10 +8,10 @@ window.addEventListener("load", function() {
             document.querySelector("#level").textContent = "" + battery.level * 100 + "%";
             document.querySelector("#health").textContent = battery.health;
 
-            document.querySelector("#charging").textContent = battery.charging ? "yes" : "no";
+            document.querySelector("#charging").textContent = battery.charging ? "Charging" : "On battery";
 
             var batteryTime = battery.charging ? battery.chargingTime : battery.dischargingTime;
-            var prefix = battery.charging ? "Charging time:  " : "Remaining time:  ";
+            var prefix = battery.charging ? "Battery charge time:  " : "Battery life:  ";
 
             if(isFinite(batteryTime)) {
                 var timingStr = prefix;
