@@ -2,6 +2,8 @@
 
 window.addEventListener("load", function() {
 
+    var weatherProviderId = 0; // OpenWeatherMap, other values are Yandex.Погода
+
     function convertWind(a) {
         if((a >= 337.5) || (a < 22.5)) return "N";
         if((a >= 22.5) && (a < 67.5)) return "NE";
@@ -14,7 +16,7 @@ window.addEventListener("load", function() {
         return "OOPS";
     }
 
-    function positioningSuccess(pos) {
+    function positioningSuccessOWM(pos) {
         var lat = pos.coords.latitude.toFixed(2);
         var lon = pos.coords.longitude.toFixed(2);
 
@@ -51,24 +53,52 @@ window.addEventListener("load", function() {
             });
     }
 
+    function positioningSuccessYW(pos) {
+        var lat = pos.coords.latitude.toFixed(2);
+        var lon = pos.coords.longitude.toFixed(2);
+    }
+
     function positioningFailed(err) {
         document.querySelector("#name").innerHTML = "Geolocation";
         document.querySelector("#temperature").innerHTML = "is off or failed";
     }
 
-    if(this.navigator.onLine) {
-        var options = {
-            enableHighAccuracy: true,
-            timeout: 10000,
-            maximumAge: 0
-        };
+    function updateWeatherInformer(providerId) {
 
-        document.querySelector("#name").innerHTML = "Determining";
-        document.querySelector("#temperature").innerHTML = "device's location...";
+        document.querySelector("#wicon").innerHTML = "&nbsp;";
+        document.querySelector("#wind").innerHTML = "&nbsp;";
+        document.querySelector("#humidity").innerHTML = "&nbsp;";
+        document.querySelector("#pressure").innerHTML = "&nbsp;";
 
-        navigator.geolocation.getCurrentPosition(positioningSuccess, positioningFailed, options);
-    } else {
-        document.querySelector("#name").innerHTML = "Network";
-        document.querySelector("#temperature").innerHTML = "not reachable";
+        document.querySelector("#prlogo").src =
+            weatherProviderId == 0 ? "icons/owmlogo.png" : "icons/ywlogo.png"; 
+
+        if(this.navigator.onLine) {
+            var options = {
+                enableHighAccuracy: true,
+                timeout: 10000,
+                maximumAge: 0
+            };
+    
+            document.querySelector("#name").innerHTML = "Determining";
+            document.querySelector("#temperature").innerHTML = "device's location...";
+    
+            navigator.geolocation.getCurrentPosition(positioningSuccessOWM, positioningFailed, options);
+        } else {
+            document.querySelector("#name").innerHTML = "Network";
+            document.querySelector("#temperature").innerHTML = "not reachable";
+        }
     }
+
+    function handleKeyDown(e) {
+        switch(e.key) {
+            case "Enter":
+                weatherProviderId = (weatherProviderId + 1) % 2;
+                updateWeatherInformer(weatherProviderId);
+            break;
+        }
+    }
+    document.addEventListener("keydown", handleKeyDown);
+
+    updateWeatherInformer(0);
 });
