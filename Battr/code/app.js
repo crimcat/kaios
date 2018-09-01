@@ -11,7 +11,7 @@ window.addEventListener("load", function() {
             document.querySelector("#charging").textContent = battery.charging ? "Charging" : "On battery";
 
             var batteryTime = battery.charging ? battery.chargingTime : battery.dischargingTime;
-            var prefix = battery.charging ? "Battery charge time:  " : "Battery life:  ";
+            var prefix = battery.charging ? "Battery charge time:  " : "Battery lifetime:  ";
 
             if(isFinite(batteryTime)) {
                 var timingStr = prefix;
