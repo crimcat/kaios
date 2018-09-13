@@ -30,7 +30,7 @@ window.addEventListener('DOMContentLoaded', function() {
 
                 document.querySelector("#name").innerHTML = "<h4>" + opts.city + "</h4>";
                 document.querySelector("#temperature").innerHTML = 
-                    "<h2>" + Math.ceil(opts.temperature) + "°C</h2>";
+                    "<h2>" + Math.round(opts.temperature) + "°C</h2>";
                 document.querySelector("#humidity").innerHTML = "Humidity: " + opts.humidity + "%";
                 document.querySelector("#pressure").innerHTML = "Pressure: " +
                     opts.pressure + " mmHg";

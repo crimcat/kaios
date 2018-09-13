@@ -56,11 +56,12 @@ window.addEventListener("load", function() {
                     window.fetch(weather_url, { mode: "cors" })
                         .then(response => {
                             response.json().then(data => {
+                                var hours = new Date().getHours();
                                 var opts = {
                                     city: data["city"]["name"],
                                     today: extract_n_record(1, data),
-                                    tomorrow: extract_n_record(9, data),
-                                    day_after_tomorrow: extract_n_record(17, data)
+                                    tomorrow: extract_n_record(Math.floor((24 - hours + 12) / 3), data),
+                                    day_after_tomorrow: extract_n_record(8 + Math.floor((24 - hours + 12) / 3), data)
                                 };
                                 resolve(opts);
                         });
