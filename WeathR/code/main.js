@@ -57,11 +57,40 @@ window.addEventListener("load", function() {
                         .then(response => {
                             response.json().then(data => {
                                 var hours = new Date().getHours();
+                                var next_slot = Math.ceil(hours / 3) % 8;
+                                var s1 = 0, s2 = 0, s3 = 0;
+                                var l1 = "", l2 = "", l3 = "";
+                                if(next_slot < 3) {
+                                    s1 = 1 + (3 - next_slot);
+                                    l1 = "Morning";
+                                    s2 = s1 + 2;
+                                    l2 = "Afternoon";
+                                    s3 = s2 + 2;
+                                    l3 = "Evening";
+                                } else if(sh < 5) {
+                                    s1 = 1 + (5 - next_slot);
+                                    l1 = "Afternoon";
+                                    s2 = s1 + 2;
+                                    l2 = "Evening";
+                                    s3 = s2 + 4;
+                                    l3 = "Morning";
+                                } else if(sh < 7) {
+                                    s1 = 1 + (7 - next_slot);
+                                    l1 = "Evening";
+                                    s2 = s1 + 4;
+                                    l2 = "Morning";
+                                    s3 = s2 + 2;
+                                    l3 = "Afternoon";
+                                }
                                 var opts = {
                                     city: data["city"]["name"],
-                                    today: extract_n_record(1, data),
-                                    tomorrow: extract_n_record(Math.floor((24 - hours + 12) / 3), data),
-                                    day_after_tomorrow: extract_n_record(8 + Math.floor((24 - hours + 12) / 3), data)
+                                    soon: extract_n_record(1, data),
+                                    cast_01: extract_n_record(s1, data),
+                                    label_01: l1,
+                                    cast_02: extract_n_record(s2, data),
+                                    label_02: l2,
+                                    cast_03: extract_n_record(s3, data),
+                                    label_03: l3
                                 };
                                 resolve(opts);
                         });
