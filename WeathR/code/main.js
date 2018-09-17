@@ -67,14 +67,14 @@ window.addEventListener("load", function() {
                                     l2 = "Afternoon";
                                     s3 = s2 + 2;
                                     l3 = "Evening";
-                                } else if(sh < 5) {
+                                } else if(next_slot < 5) {
                                     s1 = 1 + (5 - next_slot);
                                     l1 = "Afternoon";
                                     s2 = s1 + 2;
                                     l2 = "Evening";
                                     s3 = s2 + 4;
                                     l3 = "Morning";
-                                } else if(sh < 7) {
+                                } else if(next_slot < 7) {
                                     s1 = 1 + (7 - next_slot);
                                     l1 = "Evening";
                                     s2 = s1 + 4;
