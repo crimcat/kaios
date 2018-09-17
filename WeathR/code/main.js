@@ -133,7 +133,7 @@ window.addEventListener("load", function() {
             {
                 enableHighAccuracy: true,
                 timeout: 10000,
-                maximumAge: 0
+                maximumAge: 1000 * 60 * 10 // ten minutes
             }
         );
     } else {
