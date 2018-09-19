@@ -60,22 +60,22 @@ window.addEventListener("load", function() {
                                 var next_slot = Math.ceil(hours / 3) % 8;
                                 var s1 = 0, s2 = 0, s3 = 0;
                                 var l1 = "", l2 = "", l3 = "";
-                                if(next_slot < 3) {
-                                    s1 = 1 + (3 - next_slot);
+                                if((next_slot < 3) || (next_slot == 7)) {
+                                    s1 = (3 - next_slot);
                                     l1 = "Morning";
                                     s2 = s1 + 2;
                                     l2 = "Afternoon";
                                     s3 = s2 + 2;
                                     l3 = "Evening";
                                 } else if(next_slot < 5) {
-                                    s1 = 1 + (5 - next_slot);
+                                    s1 = (5 - next_slot);
                                     l1 = "Afternoon";
                                     s2 = s1 + 2;
                                     l2 = "Evening";
                                     s3 = s2 + 4;
                                     l3 = "Morning";
                                 } else if(next_slot < 7) {
-                                    s1 = 1 + (7 - next_slot);
+                                    s1 = (7 - next_slot);
                                     l1 = "Evening";
                                     s2 = s1 + 4;
                                     l2 = "Morning";
@@ -110,7 +110,7 @@ window.addEventListener("load", function() {
         navigator.geolocation.getCurrentPosition(
             function(pos) {
                 document.querySelector("#infoplacement").removeChild(document.querySelector("#progressbar"));
-                document.querySelector("#infoplacement").innerHTML = "Ready";
+                document.querySelector("#infoplacement").innerHTML = "Geolocation<br>ready";
 
                 g_latitude = pos.coords.latitude.toFixed(2);
                 g_longitude = pos.coords.longitude.toFixed(2);
@@ -118,10 +118,15 @@ window.addEventListener("load", function() {
                 window.addEventListener('keydown', function(e) {
                     switch(e.key) {
                     case 'SoftLeft':
+                        g_next_activity = 0;
                         get_weather_forecast(g_latitude, g_longitude);
                         break;
                     case 'SoftRight':
+                        g_next_activity = 1;
                         get_current_weather(g_latitude, g_longitude);
+                        break;
+                    case 'ArrowLeft':
+                    case 'ArrowRight':
                         break;
                     }                 
                 });
